@@ -1,0 +1,577 @@
+<html>
+<head>
+<title>Clone Pod</title>
+<link type="text/css" rel="stylesheet" href="core.css?4.14.1"></link>
+<link type="text/css" rel="stylesheet" href="notification_list.css?4.14.1"></link>
+<script type="text/javascript" src="/core.js?4.14.1"></script>
+<script type="text/javascript" src="/jquery/jquery.min.js?4.14.1"></script>
+<script type="text/javascript" src="/jquery/jquery.modal.js?4.14.1"></script>
+<script type="text/javascript" src="/json2.js?4.14.1"></script>
+<script type="text/javascript" src="/api/jsonrpc.js?4.14.1"></script>
+<script type="text/javascript" src="/clone_pod.js?4.14.1"></script>
+</head>
+<body>
+
+<!-- UI_Banner -->
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr style="background-color: #FFFFFF">
+<td width="1%"><img src="/local/sys/img/banner_left.1405360953.jpg" alt=""></td>
+<td></td>
+<td width="1%" align="right"><img src="/local/sys/img/banner_right.1405361148.gif" alt=""></td>
+</tr>
+</table>
+
+<!-- Application State -->
+<form name="f" action="clone_pod.cgi" method="post" enctype="multipart/form-data">
+<input type="hidden" name="_state" value="" />
+
+<!-- UI_Titlebar -->
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr bgcolor="#666666">
+<td class="document-title nowrap" style="color: #ffffff">Clone Pod</td>
+<td class="small nowrap" style="color: #ffffff; letter-spacing: 1px" width="1%"><nobr>NETLAB AE 2014.R1e.final</nobr></td>
+</tr>
+</table>
+
+<!-- Menu and User -->
+<table class="tight" width="100%" cellpadding="0" cellspacing="0">
+<tr bgcolor="#dddddd" class="bottom">
+<td width="99%" class="nowrap">
+<div class="menu" id="menu_">
+<a href="/my-netlab-z.cgi">Admin</a><a href="/logout.cgi">Logout</a></div>
+</td>
+<td width="1" class="nowrap userid">administrator</td>
+</table>
+
+<!-- UI_Margins -->
+<div class="document-margins">
+
+<!-- Application Markup -->
+
+<script type="text/javascript">
+if (document.f._state) document.f._state.value='conf_name_submit';
+</script>
+
+<script type="text/javascript">
+if (document.f._state) document.f._state.value='conf_vm';
+</script>
+<input type="hidden" name="pod_id" value="1005" />
+<input type="hidden" name="source_pod_id" value="1005" />
+<input type="hidden" name="clone_pod_id" value="11111" />
+<input type="hidden" name="clone_pod_name" value="Brad_King" />
+<table class="inform" cellpadding="2" cellspacing="0">
+<col width="120">
+<col width="300">
+<tr id="summary_source_pod_id">
+<th>Source Pod ID</th>
+<td>1005</td>
+</tr>
+<tr id="summary_source_pod_name">
+<th>Source Pod Name</th>
+<td>IS6570 - POD 1005</td>
+</tr>
+<tr>
+<td style="height: 10px" colspan="2"></td>
+</tr>
+<tr id="summary_clone_pod_type_name">
+<th>New Pod Type</th>
+<td>MSEC Cyber Security Pod</td>
+</tr>
+<tr id="summary_clone_pod_id">
+<th>New Pod ID</th>
+<td>11111</td>
+</tr>
+<tr id="summary_clone_pod_name">
+<th>New Pod Name</th>
+<td>Brad_King</td>
+</tr>
+<tr>
+<td style="height: 10px" colspan="2"></td>
+</tr>
+</table>
+<div class="pb"></div>
+<select name="clone_pod_name" id="base_snapshot_menu_opts" class="input" style="display: none">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+</select>
+<table id="vm_input_table" class="grid" cellpadding="2" cellspacing="0">
+<tr>
+<th>PC Name</th>
+<th>Source Virtual Machine</th>
+<th>Source Snapshot</th>
+<th><img src="/img/arrow_right.png" alt=""></th>
+<th>Clone Name</th>
+<th>Clone Type</th>
+<th>Clone Role</th>
+<th>Runtime Host or Group</th>
+<th>Clone Datastore</th>
+<th>Storage Allocation</th>
+</tr>
+<tr class="oddrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_1" value="1" />
+VM 1</td>
+<td><select name="source_vm_id_1" id="source_vm_id_1" class="small input cp-source-vm">
+<option value="414">IS6570 - MSEC 5 - VM 1</option>
+</select>
+<input type="hidden" name="vm_id_of_source_1" value="414" />
+<input type="hidden" name="pc_type_1" value="AVMI" />
+</td>
+<td><select name="source_snapshot_1" id="source_snapshot_1" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_1" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_1" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_1" alt=""></td>
+<td><input type="text" name="clone_name_1" value="Brad_King VM 1" id="clone_name_1" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_1" id="clone_type_1" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_1" id="clone_role_1" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_1" id="clone_host_or_group_1" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_1" value="datastore9.1" />
+<td><select name="clone_datastore_1" id="clone_datastore_1" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_1" id="clone_storage_alloc_1" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="evenrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_2" value="2" />
+VM 2</td>
+<td><select name="source_vm_id_2" id="source_vm_id_2" class="small input cp-source-vm">
+<option value="415">IS6570 - MSEC 5 - VM 2</option>
+</select>
+<input type="hidden" name="vm_id_of_source_2" value="415" />
+<input type="hidden" name="pc_type_2" value="AVMI" />
+</td>
+<td><select name="source_snapshot_2" id="source_snapshot_2" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_2" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_2" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_2" alt=""></td>
+<td><input type="text" name="clone_name_2" value="Brad_King VM 2" id="clone_name_2" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_2" id="clone_type_2" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_2" id="clone_role_2" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_2" id="clone_host_or_group_2" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_2" value="datastore9.1" />
+<td><select name="clone_datastore_2" id="clone_datastore_2" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_2" id="clone_storage_alloc_2" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="oddrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_3" value="3" />
+VM 3</td>
+<td><select name="source_vm_id_3" id="source_vm_id_3" class="small input cp-source-vm">
+<option value="416">IS6570 - MSEC 5 - VM 3</option>
+</select>
+<input type="hidden" name="vm_id_of_source_3" value="416" />
+<input type="hidden" name="pc_type_3" value="AVMI" />
+</td>
+<td><select name="source_snapshot_3" id="source_snapshot_3" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_3" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_3" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_3" alt=""></td>
+<td><input type="text" name="clone_name_3" value="Brad_King VM 3" id="clone_name_3" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_3" id="clone_type_3" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_3" id="clone_role_3" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_3" id="clone_host_or_group_3" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_3" value="datastore9.1" />
+<td><select name="clone_datastore_3" id="clone_datastore_3" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_3" id="clone_storage_alloc_3" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="evenrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_4" value="4" />
+VM 4</td>
+<td><select name="source_vm_id_4" id="source_vm_id_4" class="small input cp-source-vm">
+<option value="417">IS6570 - MSEC 5 - VM 4</option>
+</select>
+<input type="hidden" name="vm_id_of_source_4" value="417" />
+<input type="hidden" name="pc_type_4" value="AVMI" />
+</td>
+<td><select name="source_snapshot_4" id="source_snapshot_4" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_4" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_4" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_4" alt=""></td>
+<td><input type="text" name="clone_name_4" value="Brad_King VM 4" id="clone_name_4" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_4" id="clone_type_4" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_4" id="clone_role_4" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_4" id="clone_host_or_group_4" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_4" value="datastore9.1" />
+<td><select name="clone_datastore_4" id="clone_datastore_4" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_4" id="clone_storage_alloc_4" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="oddrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_5" value="5" />
+VM 5</td>
+<td><select name="source_vm_id_5" id="source_vm_id_5" class="small input cp-source-vm">
+<option value="418">IS6570 - MSEC 5 - VM 5</option>
+</select>
+<input type="hidden" name="vm_id_of_source_5" value="418" />
+<input type="hidden" name="pc_type_5" value="AVMI" />
+</td>
+<td><select name="source_snapshot_5" id="source_snapshot_5" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_5" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_5" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_5" alt=""></td>
+<td><input type="text" name="clone_name_5" value="Brad_King VM 5" id="clone_name_5" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_5" id="clone_type_5" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_5" id="clone_role_5" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_5" id="clone_host_or_group_5" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_5" value="datastore9.1" />
+<td><select name="clone_datastore_5" id="clone_datastore_5" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_5" id="clone_storage_alloc_5" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="evenrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_6" value="6" />
+VM 6</td>
+<td><select name="source_vm_id_6" id="source_vm_id_6" class="small input cp-source-vm">
+<option value="419">IS6570 - MSEC 5 - VM 6</option>
+</select>
+<input type="hidden" name="vm_id_of_source_6" value="419" />
+<input type="hidden" name="pc_type_6" value="AVMI" />
+</td>
+<td><select name="source_snapshot_6" id="source_snapshot_6" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_6" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_6" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_6" alt=""></td>
+<td><input type="text" name="clone_name_6" value="Brad_King VM 6" id="clone_name_6" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_6" id="clone_type_6" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_6" id="clone_role_6" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_6" id="clone_host_or_group_6" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_6" value="datastore9.1" />
+<td><select name="clone_datastore_6" id="clone_datastore_6" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_6" id="clone_storage_alloc_6" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="oddrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_7" value="7" />
+VM 7</td>
+<td><select name="source_vm_id_7" id="source_vm_id_7" class="small input cp-source-vm">
+<option value="420">IS6570 - MSEC 5 - VM 7</option>
+</select>
+<input type="hidden" name="vm_id_of_source_7" value="420" />
+<input type="hidden" name="pc_type_7" value="AVMI" />
+</td>
+<td><select name="source_snapshot_7" id="source_snapshot_7" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_7" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_7" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_7" alt=""></td>
+<td><input type="text" name="clone_name_7" value="Brad_King VM 7" id="clone_name_7" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_7" id="clone_type_7" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_7" id="clone_role_7" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_7" id="clone_host_or_group_7" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_7" value="datastore9.1" />
+<td><select name="clone_datastore_7" id="clone_datastore_7" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_7" id="clone_storage_alloc_7" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+<tr class="evenrow" style="height: 32px">
+<td class="rpad"><input type="hidden" class="cp-pl-index" name="pl_index_8" value="8" />
+VM 8</td>
+<td><select name="source_vm_id_8" id="source_vm_id_8" class="small input cp-source-vm">
+<option value="421">IS6570 - MSEC 5 - VM 8</option>
+</select>
+<input type="hidden" name="vm_id_of_source_8" value="421" />
+<input type="hidden" name="pc_type_8" value="AVMI" />
+</td>
+<td><select name="source_snapshot_8" id="source_snapshot_8" class="small input cp-source-snapshot" style="display: none;">
+<option value="__CURRENT_STATE__">Current State (no snapshot)</option>
+<option selected="selected">GOLDEN_SNAPSHOT</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td nowrap="nowrap"><img src="/img/vm_normal.png" id="id_source_role_icon_8" alt=""> <img src="/img/button_app_copy.png" id="id_clone_type_icon_8" alt=""> <img src="/img/vm_normal.png" id="id_clone_role_icon_8" alt=""></td>
+<td><input type="text" name="clone_name_8" value="Brad_King VM 8" id="clone_name_8" class="small input cp-clone-name" style="width: 150px" maxlength="255">
+</td>
+<td><select name="clone_type_8" id="clone_type_8" class="small input cp-clone-type">
+<option value="LINKED">Linked</option>
+<option value="FULL">Full</option>
+</select>
+</td>
+<td><select name="clone_role_8" id="clone_role_8" class="small input cp-clone-role">
+<option value="MASTER">Master</option>
+<option value="NORMAL" selected="selected">Normal</option>
+<option value="PERSISTENT">Persistent</option>
+</select>
+</td>
+<td><select name="clone_host_or_group_8" id="clone_host_or_group_8" class="small input cp-host-or-group" style="display: none">
+<option value="H:3">Host esxislave01.netlab-domain</option>
+<option value="H:4">Host esxislave02.netlab-domain</option>
+<option value="H:5">Host esxislave03.netlab-domain</option>
+<option value="H:7">Host esxislave04.netlab-domain</option>
+<option value="H:6" selected="selected">Host esxislave05.netlab-domain</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<input type="hidden" name="default_datastore_8" value="datastore9.1" />
+<td><select name="clone_datastore_8" id="clone_datastore_8" class="small input cp-datastore" style="display: none">
+<option selected="selected">datastore9.1</option>
+</select>
+<div class="cp-loading red">
+Loading
+</div>
+</td>
+<td><select name="clone_storage_alloc_8" id="clone_storage_alloc_8" class="small input cp-storage-alloc">
+<option value="ONDEMAND">On Demand</option>
+<option value="PREALLOCATED">Preallocated</option>
+</select>
+</td>
+</tr>
+</table>
+<button type="button" id="clone_pod_button"><nobr><img src="/img/button_ok.gif" class="middle" alt=""> Clone Pod</nobr></button>
+<button type="button" onclick="document.f._state.value='conf_name'; document.f.submit()"><nobr><img src="/img/button_left.gif" class="middle" alt=""> Previous</nobr></button>
+<button type="button" onclick="document.f.action='/conf_pods.cgi'; document.f.submit()"><nobr><img src="/img/button_cancel.gif" class="middle" alt=""> Cancel</nobr></button>
+<div id="modal_processing" class="pad-10 bold nowrap center" style="width: 180px; height: 64px; display: none">
+<img src="/img/processing_32.gif" class="middle" alt="">&nbsp;&nbsp;&nbsp;&nbsp;Processing
+</div>
+
+<script type="text/javascript">
+
+        $(document).ready(function() {
+            clonepod.conf_vm_init();
+        })
+    
+</script>
+
+<!-- UI_End -->
+</div>
+</form>
+</body>
+</html>
