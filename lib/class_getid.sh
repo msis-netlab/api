@@ -80,4 +80,5 @@ if [ -z "${class_id}" ]; then
 	exit -1
 fi
 echo "${class_id}"
-exit 0
+
+exit "$?"

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Add users to NETLAB, with their own pods, for IS6640 Fall 2015
+# Add users to NETLAB, with their own pods, assign user to community, to class, to pod
 
 function usage {
 	echo "Usage: $0 --username NAME --classname NAME --clonepodid ID --sourcepodid ID --host HOST --cookie COOKIE [--sourcesnapshot SNAPSHOT] [--clonetype TYPE] [--clonerole ROLE]"
@@ -98,7 +98,7 @@ else
 	grep="grep -Po"
 fi
 
-# Determine the Operating System context of the call
+# Determine the context of the call
 dir=`echo "$0" | ${grep} "^.*/"`
 
 # 0) Pod - Get info

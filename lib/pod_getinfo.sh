@@ -214,3 +214,5 @@ while read line; do
 		echo "$line"
 	fi
 done <<< "${foo}"
+
+exit "$?"

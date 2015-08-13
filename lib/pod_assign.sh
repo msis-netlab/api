@@ -74,7 +74,7 @@ if [ -z "${COOKIE}" ]; then
 	exit 1
 fi
 
-# Attempt to bring the pod online
+# Attempt to assign pod to user
 "${CURL}" -s "${HOST}/pod_assign.cgi" \
 -H "Cookie: netlab_sid=${COOKIE}" \
 -H "Origin: ${HOST}" \
@@ -87,3 +87,5 @@ fi
 -H 'Connection: keep-alive' \
 --data-binary $'------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="_state"\r\n\r\nadd_submit\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="layer"\r\n\r\nSYS\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="com_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="div_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="cls_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="pod_id"\r\n\r\n'"${POD_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="confirm"\r\n\r\n0\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_com_id"\r\n\r\n1\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_cls_id"\r\n\r\n'"${CLASS_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_acc_id"\r\n\r\n'"${USER_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J--\r\n' \
 --compressed > /dev/null
+
+exit "$?"

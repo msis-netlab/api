@@ -67,13 +67,11 @@ if [ -z "${COOKIE}" ]; then
 fi
 
 # Attempt to bring the pod online
-"${CURL}" "${HOST}/conf_pods.cgi" \
+"${CURL}" -s "${HOST}/conf_pods.cgi" \
 -H "Cookie: cookie_test=1438308112; netlab_sid=${COOKIE}; PHPSESSID=8bf475295ce3d696c70c23093c99b770" \
 -H "Origin: ${HOST}" \
 -H "Accept-Encoding: gzip, deflate" \
 -H "Accept-Language: en-US,en;q=0.8" \
--H "Upgrade-Insecure-Requests: 1" \
--H "User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.125 Safari/537.36" \
 -H "Content-Type: application/x-www-form-urlencoded" \
 -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" \
 -H "Cache-Control: max-age=0" \
@@ -82,10 +80,4 @@ fi
 --data "State=pod_offline&pod_id=${POD_ID}&dev_id=${DEV_ID}&pc_id=${PC_ID}" \
 --compressed > /dev/null 2>&1
 
-if [ "$?" == 0 ]; then
-	echo ">>> Pod OFFLINE"
-	exit 0
-else
-	echo ">>> Command failed -- either still ONLINE, or was already OFFLINE"
-	exit $?
-fi
+echo "$?"

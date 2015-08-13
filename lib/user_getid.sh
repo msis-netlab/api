@@ -64,7 +64,7 @@ output=`"${CURL}" -s "${HOST}/accman.cgi" \
 -H 'Content-Type: application/x-www-form-urlencoded' \
 -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' \
 -H 'Cache-Control: max-age=0' \
--H 'Referer: ${HOST}/accman.cgi' \
+-H "Referer: ${HOST}/accman.cgi" \
 -H 'Connection: keep-alive' \
 --data 'State=Search&from_query=1&community_id=0&type_filter=A&query_filter=' \
 --compressed`
@@ -79,3 +79,5 @@ fi
 
 # Massage the data in output and find the acc_id
 echo "${output}" | grep -i "${USER_NAME}<" -B 2 | head -n 1 | grep "javascript:show_account" | ${grep} "[0-9]+"
+
+exit "$?"

@@ -132,7 +132,7 @@ foo+="
 	\"id\": null
 }"
 
-# Post the JSON block
+# POST the JSON block
 "${CURL}" -s "${HOST}/api/jsonrpc.cgi?method" \
 -H "Cookie: netlab_sid=${COOKIE}" \
 -H "Origin: ${HOST}/" \
