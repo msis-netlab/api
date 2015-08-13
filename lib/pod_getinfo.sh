@@ -3,11 +3,9 @@
 
 # Initial values, some may be replaced depending on parameters
 CURL=`which curl`
-CLONE_TYPE="LINKED"
-CLONE_ROLE="NORMAL"
 
 function usage {
-	echo "Usage: $0 --clonepodid ID --clonepodname NAME --sourcepodid ID --host HOST --cookie COOKIE"
+	echo "Usage: $0 --clonepodid ID --clonepodname NAME --sourcepodid ID --host HOST --cookie COOKIE [--sourcesnapshot SNAPSHOT] [--clonetype TYPE] [--clonerole ROLE]"
 }
 
 
@@ -40,6 +38,11 @@ while [[ $# > 1 ]]; do
 		shift
 		;;
 
+		--sourcesnapshot)
+		SOURCE_SNAPSHOT="$2"
+		shift
+		;;
+
 		--clonetype)
 		CLONE_TYPE="$2"
 		shift
@@ -65,27 +68,22 @@ if [ -z "${CLONE_POD_ID}" ]; then
 	usage
 	exit 3
 fi
-
 if [ -z "${CLONE_POD_NAME}" ]; then
 	usage
 	exit 3
 fi
-
 if [ -z "${SOURCE_POD_ID}" ]; then
 	usage
 	exit 2
 fi
-
 if [ -z "${HOST}" ]; then
 	usage
 	exit 2
 fi
-
 if [ -z "${COOKIE}" ]; then
 	usage
 	exit 2
 fi
-
 
 output=`"${CURL}" -s "${HOST}/clone_pod.cgi" \
 -H "Cookie: netlab_sid=${COOKIE}" \
@@ -123,6 +121,14 @@ source_vm_id=`echo "${output}" | grep "vm_id_of_source" | ${grep} "value=\".*?\"
 
 # Find "source_snapshot" -A 2, "selected"
 source_snapshot=`echo "${output}" | grep "source_snapshot" -A 2 | grep "selected" | ${grep} ">.*?<" | sed 's/>//' | sed 's/<//'`
+if [ ! -z "${SOURCE_SNAPSHOT}" ]; then
+	wc=`echo "${source_snapshot}" | wc -l`
+	source_snapshot=""
+	for i in `seq 1 ${wc}`; do
+		source_snapshot+="${SOURCE_SNAPSHOT}
+"
+	done
+fi
 
 
 # Find "clone_name"
@@ -131,10 +137,26 @@ clone_name=`echo "${output}" | grep "clone_name" | ${grep} "value=\".*?\"" | sed
 
 ## Find "clone_type" (this is kinda hokey... could just return "LINKED" as default)
 clone_type=`echo "${output}" | grep "name=\"clone_type" -A 1 | grep "value" | ${grep} "value=\".*?\"" | sed 's/value=//' | sed 's/"//g'`
+if [ ! -z "${CLONE_TYPE}" ]; then
+	wc=`echo "${clone_type}" | wc -l`
+	clone_type=""
+	for i in `seq 1 ${wc}`; do
+		clone_type+="${CLONE_TYPE}
+"
+	done
+fi
 
 
 # Find "clone_role"
 clone_role=`echo "${output}" | grep "name=\"clone_role" -A 3 | grep "selected" | ${grep} "value=\".*?\"" | sed 's/value=//' | sed 's/"//g'`
+if [ ! -z "${CLONE_ROLE}" ]; then
+	wc=`echo "${clone_role}" | wc -l`
+	clone_role=""
+	for i in `seq 1 ${wc}`; do
+		clone_role+="${CLONE_ROLE}
+"
+	done
+fi
 
 
 # Find "default_datastore" (this is clone_datastore)

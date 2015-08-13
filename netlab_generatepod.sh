@@ -2,7 +2,7 @@
 # Add users to NETLAB, with their own pods, for IS6640 Fall 2015
 
 function usage {
-	echo "Usage: $0 --username NAME --classname NAME --clonepodid ID --sourcepodid ID --host HOST --cookie COOKIE"
+	echo "Usage: $0 --username NAME --classname NAME --clonepodid ID --sourcepodid ID --host HOST --cookie COOKIE [--sourcesnapshot SNAPSHOT] [--clonetype TYPE] [--clonerole ROLE]"
 }
 
 while [[ $# > 1 ]]; do
@@ -36,6 +36,21 @@ while [[ $# > 1 ]]; do
 
 		--cookie)
 		COOKIE="$2"
+		shift
+		;;
+
+		--sourcesnapshot)
+		SOURCE_SNAPSHOT="$2"
+		shift
+		;;
+
+		--clonetype)
+		CLONE_TYPE="$2"
+		shift
+		;;
+
+		--clonerole)
+		CLONE_ROLE="$2"
 		shift
 		;;
 
@@ -83,11 +98,11 @@ else
 	grep="grep -Po"
 fi
 
-# Determine the context of the call
+# Determine the Operating System context of the call
 dir=`echo "$0" | ${grep} "^.*/"`
 
 # 0) Pod - Get info
-DATA=`${dir}/lib/pod_getinfo.sh --clonepodid "${CLONE_POD_ID}" --clonepodname "${CLASS_NAME} - ${USERNAME}" --sourcepodid "${SOURCE_POD_ID}" --host "${HOST}" --cookie "${COOKIE}"`
+DATA=`${dir}/lib/pod_getinfo.sh --clonepodid "${CLONE_POD_ID}" --clonepodname "${CLASS_NAME} - ${USERNAME}" --sourcepodid "${SOURCE_POD_ID}" --host "${HOST}" --cookie "${COOKIE}" --sourcesnapshot "${SOURCE_SNAPSHOT}" --clonetype "${CLONE_TYPE}" --clonerole "${CLONE_ROLE}"`
 
 # 1) Pod - Create
 ${dir}/lib/pod_create.sh --sourcepodid "${SOURCE_POD_ID}" --clonepodid "${CLONE_POD_ID}" --clonepodname "${CLASS_NAME} - ${USERNAME}" --data "${DATA}" --host "${HOST}" --cookie "${COOKIE}"

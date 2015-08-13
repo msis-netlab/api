@@ -3,12 +3,9 @@
 
 # Initial values, some may be replaced depending on parameters
 CURL=`which curl`
-CLONE_TYPE="LINKED"
-CLONE_ROLE="NORMAL"
-CLONE_DATASTORE="datastore8.1"
 
 function usage {
-	echo "Usage: $0 --sourcepodid ID --clonepodid ID --clonepodname NAME --data DATA --host HOST --cookie COOKIE [--clonetype ${CLONE_TYPE}] [--clonerole ${CLONE_ROLE}]"
+	echo "Usage: $0 --sourcepodid ID --clonepodid ID --clonepodname NAME --data DATA --host HOST --cookie COOKIE [--clonetype TYPE] [--clonerole ROLE]"
 }
 
 
