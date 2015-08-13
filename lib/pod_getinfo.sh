@@ -87,7 +87,7 @@ fi
 
 output=`"${CURL}" -s "${HOST}/clone_pod.cgi" \
 -H "Cookie: netlab_sid=${COOKIE}" \
--H 'Origin: http://netlab.netlab-domain' \
+-H "Origin: ${HOST}" \
 -H 'Accept-Encoding: gzip, deflate' \
 -H 'Accept-Language: en-US,en;q=0.8' \
 -H 'Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryGRRZ58cJg9jJf32K' \
