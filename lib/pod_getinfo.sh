@@ -168,7 +168,7 @@ clone_storage_alloc=`echo "${output}" | grep "clone_storage_alloc" -A 1 | ${grep
 
 
 # Find "clone_host_or_group" (vh_id)
-vh_id=`echo "${output}" | grep -E "value=\"H:[0-9]*\"? selected=\"selected\"" | ${grep} "\"H:.*?\"" | sed 's/H://' | sed 's/"//g'`
+vh_id=`echo "${output}" | ${grep} "value=\"H:[0-9]*\"? selected=\"selected\"" | ${grep} "\"H:.*?\"" | sed 's/H://' | sed 's/"//g'`
 
 
 
