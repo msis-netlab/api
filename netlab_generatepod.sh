@@ -103,6 +103,14 @@ dir=`echo "$0" | ${grep} "^.*/"`
 
 # 0) Pod - Get info
 DATA=`${dir}/lib/pod_getinfo.sh --clonepodid "${CLONE_POD_ID}" --clonepodname "${CLASS_NAME} - ${USERNAME}" --sourcepodid "${SOURCE_POD_ID}" --host "${HOST}" --cookie "${COOKIE}" --sourcesnapshot "${SOURCE_SNAPSHOT}" --clonetype "${CLONE_TYPE}" --clonerole "${CLONE_ROLE}"`
+if [ "$?" != 0 ]; then
+	echo "STEP 0: CALL TO lib/pod_getinfo.sh failed"
+	exit 1
+fi
+if [ -z "${DATA}" ]; then
+	echo "STEP 0: \$DATA FROM lib/pod_getinfo.sh empty"
+	exit 1
+fi
 
 # 1) Pod - Create
 ${dir}/lib/pod_create.sh --sourcepodid "${SOURCE_POD_ID}" --clonepodid "${CLONE_POD_ID}" --clonepodname "${CLASS_NAME} - ${USERNAME}" --data "${DATA}" --host "${HOST}" --cookie "${COOKIE}"
@@ -114,10 +122,10 @@ userid=`${dir}/lib/user_getid.sh --username "${USERNAME}" --host "${HOST}" --coo
 classid=`${dir}/lib/class_getid.sh --classname "${CLASS_NAME}" --host "${HOST}" --cookie "${COOKIE}"`
 
 # 4) Pod - Assign
-${dir}/lib/pod_assign.sh --podid "${CLONE_POD_ID}" --classid "${classid}" --userid "${userid}" --host "${HOST}" --cookie "${COOKIE}"
+${dir}/lib/pod_assign.sh --podid "${CLONE_POD_ID}" --classid "${classid}" --username "${userid}" --host "${HOST}" --cookie "${COOKIE}"
 
 # 5) Pod - Online
 ${dir}/lib/pod_online.sh --podid "${CLONE_POD_ID}" --host "${HOST}" --cookie "${COOKIE}"
 
 # 6) Pod - Get id
-${dir}/lib/pod_getid.sh --podname "${CLASS_NAME} - ${USERNAME}" --host "${HOST}" --cookie "${COOKIE}"
+#${dir}/lib/pod_getid.sh --podname "${CLASS_NAME} - ${USERNAME}" --host "${HOST}" --cookie "${COOKIE}"
