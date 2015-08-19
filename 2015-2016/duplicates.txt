@@ -1,0 +1,12 @@
+# These are the uNIDs of Students that already existed and didn't need to be removed.
+u0654558
+u0626387
+u0889587
+u0864662
+u0759453
+u0678111
+u0125486
+u0482542
+u0432732
+u0561937
+u0983551
