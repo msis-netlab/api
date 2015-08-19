@@ -5,7 +5,7 @@
 CURL=`which curl`
 
 function usage {
-	echo "Usage: $0 --podid ID --classid ID --userid ID --host HOST --cookie COOKIE"
+	echo "Usage: $0 --podid ID --classid ID --username ID --host HOST --cookie COOKIE"
 }
 
 while [[ $# > 1 ]]; do
@@ -22,8 +22,8 @@ while [[ $# > 1 ]]; do
 		shift
 		;;
 
-		--userid)
-		USER_ID="$2"
+		--username)
+		USERNAME="$2"
 		shift
 		;;
 
@@ -58,8 +58,8 @@ if [ -z "${CLASS_ID}" ]; then
 	usage
 	exit 1
 fi
-if [ -z "${USER_ID}" ]; then
-	echo "--userid is required"
+if [ -z "${USERNAME}" ]; then
+	echo "--username is required"
 	usage
 	exit 1
 fi
@@ -85,7 +85,7 @@ fi
 -H 'Cache-Control: max-age=0' \
 -H "Referer: ${HOSt}/pod_assign.cgi" \
 -H 'Connection: keep-alive' \
---data-binary $'------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="_state"\r\n\r\nadd_submit\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="layer"\r\n\r\nSYS\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="com_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="div_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="cls_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="pod_id"\r\n\r\n'"${POD_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="confirm"\r\n\r\n0\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_com_id"\r\n\r\n1\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_cls_id"\r\n\r\n'"${CLASS_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_acc_id"\r\n\r\n'"${USER_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J--\r\n' \
+--data-binary $'------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="_state"\r\n\r\nadd_submit\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="layer"\r\n\r\nSYS\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="com_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="div_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="cls_id"\r\n\r\n\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="pod_id"\r\n\r\n'"${POD_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="confirm"\r\n\r\n0\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_com_id"\r\n\r\n1\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_cls_id"\r\n\r\n'"${CLASS_ID}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J\r\nContent-Disposition: form-data; name="form_acc_id"\r\n\r\n'"${USERNAME}"$'\r\n------WebKitFormBoundaryBUpJUIMbnuoGA38J--\r\n' \
 --compressed > /dev/null
 
 exit "$?"
