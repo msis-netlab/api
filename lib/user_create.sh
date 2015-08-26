@@ -1,6 +1,4 @@
 #!/bin/bash
-
-#!/bin/bash
 # Create a user in NETLAB -- for now, only Student types
 
 # Initial values, some may be replaced depending on parameters
