@@ -39,7 +39,7 @@ done
 
 # Required arguments -- exit if not present
 if [ -z "${USER_NAME}" ]; then
-	echo "--studentname is required"
+	echo "--username is required"
 	usage
 	exit 1
 fi
