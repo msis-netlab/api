@@ -104,7 +104,7 @@ dir=`echo "$0" | ${grep} "^.*/"`
 # 0) Pod - Get info
 DATA=`${dir}/lib/pod_getinfo.sh --clonepodid "${CLONE_POD_ID}" --clonepodname "${CLASS_NAME} - ${USERNAME}" --sourcepodid "${SOURCE_POD_ID}" --host "${HOST}" --cookie "${COOKIE}" --sourcesnapshot "${SOURCE_SNAPSHOT}" --clonetype "${CLONE_TYPE}" --clonerole "${CLONE_ROLE}"`
 if [ "$?" != 0 ]; then
-	echo "STEP 0: CALL TO lib/pod_getinfo.sh failed"
+	echo "STEP 0: CALL TO lib/pod_getinfo.sh failed: $?"
 	exit 1
 fi
 if [ -z "${DATA}" ]; then
